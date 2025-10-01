@@ -3,8 +3,8 @@
 Este script PHP valida un **captcha generado previamente** y controla los intentos de envío de un formulario, protegiendo contra bots y accesos automatizados.
 
 Se tiene 2 versiones de captcha en diferentes ramas
-  -uno
-  -dos
+  -**uno**
+  -**dos**
 
 ---
 
