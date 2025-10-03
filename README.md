@@ -26,8 +26,7 @@ La forma más sencilla de probar esta versión es usando Docker. No necesitas in
 
 1.  **Clona el repositorio y entra al directorio:**
     ```bash
-    git clone [https://github.com/tu-usuario/tu-repositorio.git](https://github.com/tu-usuario/tu-repositorio.git)
-    cd tu-repositorio
+    git clone https://github.com/marshaKM25/Formulario
     ```
     *(Si ya lo clonaste, asegúrate de estar en la rama correcta).*
 
