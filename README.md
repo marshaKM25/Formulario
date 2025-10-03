@@ -1,60 +1,53 @@
-# Validador de Captcha con Control de Intentos
+# CAPTCHA Animado y Seguro con PHP 
 
-Este script PHP valida un **captcha generado previamente** y controla los intentos de envío de un formulario, protegiendo contra bots y accesos automatizados.
-
-Se tiene 2 versiones de captcha en diferentes ramas
-  -uno
-  -dos
+Esta es la implementación de un sistema de CAPTCHA de alta seguridad que genera **GIFs animados** para una máxima resistencia contra bots. El proyecto utiliza PHP, la extensión Imagick y está completamente configurado para ejecutarse al instante con Docker.
 
 ---
 
-## Especificaciones
+## Características Principales 
 
-- **Lenguaje:** PHP  
-- **Almacenamiento temporal:** Sesiones (`$_SESSION`)  
-- **Propósito:** Asegurar que solo usuarios humanos puedan enviar el formulario y que los captchas sean válidos y de un solo uso.
-
----
-
-## Funcionalidades principales
-
-1. **Validación de campos**
-   - Verifica que el usuario haya llenado los campos obligatorios (`nombre` y `codigo`). 
-   - Si faltan datos, muestra un mensaje de error y redirige al formulario.
-
-2. **Fingerprint del usuario**
-   - Genera un identificador único por sesión y navegador (`fingerprint`) para controlar intentos por usuario.  
-
-3. **Control de intentos y bloqueo**
-   - Permite un máximo de **3 intentos fallidos** por captcha.  
-   - Si se supera, bloquea temporalmente **5 minutos** antes de permitir nuevos intentos.  
-   - Reinicia el contador si el bloqueo expira.
-
-4. **Recuperación y verificación del captcha**
-   - Obtiene el captcha almacenado en la sesión usando el `form_id`.  
-   - Verifica que **exista y no haya expirado** (2 minutos de validez).  
-   - Cada captcha es de **un solo uso**, eliminándose de la sesión después de validar.
-
-5. **Comparación segura**
-   - Compara el código ingresado con el original usando `hash('sha256')` y `hash_equals()` para prevenir ataques de timing.  
-   - Si el código es incorrecto:
-     - Se incrementa el contador de intentos.  
-     - Se elimina el captcha de la sesión.  
-     - Se aplica un **retardo de 2 segundos** como medida anti-bots.  
-     - Se muestra mensaje de error con el número de intento.
-
-6. **Éxito en validación**
-   - Si el captcha es correcto:
-     - Se elimina de la sesión para **un solo uso**.  
-     - Se reinicia el contador de intentos.  
-     - Se muestra un mensaje de bienvenida al usuario.
+* **Alta Seguridad:** Diseñado desde cero para ser resistente a bots y ataques comunes.
+* **Protección contra Fuerza Bruta:** Limita los intentos fallidos por usuario y aplica un bloqueo temporal para detener ataques.
+* **Comparación Segura:** Usa `hash_equals()` para prevenir ataques de temporización al validar el código.
+* **Entorno Dockerizado:** Configuración de un solo comando para un entorno de desarrollo y pruebas 100% reproducible.
+* **Código de Un Solo Uso y con Expiración:** Cada CAPTCHA es válido para un único intento y expira después de un tiempo definido.
+* **Generación de GIF Animado:** Utiliza **Imagick** para crear imágenes complejas y dinámicas que son extremadamente difíciles de procesar por software OCR.
 
 ---
 
-## Beneficios y seguridad
+## Prueba  Rápida con Docker
 
-- Previene **envíos automáticos** de formularios por bots.  
-- Garantiza que **cada captcha tenga validez temporal** y sea de **un solo uso**.  
-- Controla la **frecuencia de intentos** para aumentar la seguridad.  
-- Implementa **retardo anti-bots** y manejo seguro de comparaciones para evitar vulnerabilidades.
+La forma más sencilla de probar esta versión es usando Docker. No necesitas instalar PHP ni un servidor web en tu máquina.
 
+### **Requisitos Previos:**
+* [Docker](https://www.docker.com/get-started) y [Docker Compose](https://docs.docker.com/compose/install/) instalados.
+
+### **Pasos para Ejecutar:**
+
+1.  **Clona el repositorio y entra al directorio:**
+    ```bash
+    git clone [https://github.com/tu-usuario/tu-repositorio.git](https://github.com/tu-usuario/tu-repositorio.git)
+    cd tu-repositorio
+    ```
+    *(Si ya lo clonaste, asegúrate de estar en la rama correcta).*
+
+2.  **Construye y levanta el contenedor:**
+    Este comando leerá el `docker-compose.yml`, construirá la imagen de PHP con todas las dependencias (incluyendo Imagick) y ejecutará el servidor en segundo plano.
+    ```bash
+    docker-compose up -d --build
+    ```
+
+3.  **¡Listo!**
+    Abre tu navegador y visita **[http://localhost:8081](http://localhost:8081)**. Deberías ver el formulario con el CAPTCHA animado funcionando.
+
+---
+
+## Contribuciones 🤝
+
+¡Las contribuciones son bienvenidas! Si deseas reportar un bug o sugerir una mejora, por favor, lee nuestra [guía para contribuir](CONTRIBUTING.md).
+
+## Licencia 📄
+
+Este proyecto está distribuido bajo la Licencia MIT. Consulta el archivo [LICENSE](LICENSE) para más detalles.
+
+---
